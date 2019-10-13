@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.8.RELEASE</version>
+        <relativePath/>
+    </parent>
+    <groupId>pl.touk</groupId>
+    <artifactId>ticket.booking.demo</artifactId>
+    <name>ticket-booking-demo</name>
+    <description>Ticket booking system - demo</description>
+
+    <properties>
+        <java.version>11</java.version>
+
+        <spring.datasource.driver-class-name>org.h2.Driver</spring.datasource.driver-class-name>
+        <spring.datasource.url>jdbc:h2:mem:demo</spring.datasource.url>
+        <spring.datasource.username>demo</spring.datasource.username>
+        <spring.datasource.password>demo</spring.datasource.password>
+
+        <spring.h2.console.enabled>true</spring.h2.console.enabled>
+        <spring.h2.console.settings.trace>false</spring.h2.console.settings.trace>
+        <spring.h2.console.settings.web-allow-others>false</spring.h2.console.settings.web-allow-others>
+
+        <spring.jpa.database-platform>org.hibernate.dialect.H2Dialect</spring.jpa.database-platform>
+        <spring.jpa.hibernate.ddl-auto>none</spring.jpa.hibernate.ddl-auto>
+        <spring.jpa.hibernate.naming_strategy>org.hibernate.cfg.EJB3NamingStrategy</spring.jpa.hibernate.naming_strategy>
+
+        <spring.jpa.hibernate.naming.physical-strategy>org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl</spring.jpa.hibernate.naming.physical-strategy>
+        <spring.jpa.hibernate.naming.implicit-strategy>org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl</spring.jpa.hibernate.naming.implicit-strategy>
+
+        <logging.level.liquibase>INFO</logging.level.liquibase>
+        <logging.level.org.springframework.web>INFO</logging.level.org.springframework.web>
+        <logging.level.org.springframework.transaction>INFO</logging.level.org.springframework.transaction>
+        <logging.level.org.hibernate.type>INFO</logging.level.org.hibernate.type>
+
+        <spring.liquibase.change-log>classpath:/db/changelog/changelog-master.xml</spring.liquibase.change-log>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>5.1.10.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>

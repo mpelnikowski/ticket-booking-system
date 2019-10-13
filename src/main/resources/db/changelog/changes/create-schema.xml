@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="mateusz.pelnikowski" id="create-movie-table" logicalFilePath="create-schema.xml">
+        <createTable tableName="Movie">
+            <column autoIncrement="true" name="MovieID" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="Title" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Director" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Description" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Duration" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="Movie"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="mateusz.pelnikowski" id="create-auditorium-table" logicalFilePath="create-schema.xml">
+        <createTable tableName="Auditorium">
+            <column autoIncrement="true" name="AuditoriumID" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="Name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="Auditorium"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="mateusz.pelnikowski" id="create-screening-table" logicalFilePath="create-schema.xml">
+        <createTable tableName="Screening">
+            <column autoIncrement="true" name="ScreeningID" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="MovieID" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="Movie_Screening_FK"
+                             referencedTableName="Movie"
+                             referencedColumnNames="MovieID"/>
+            </column>
+            <column name="AuditoriumID" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="Auditorium_Screening_FK"
+                             referencedTableName="Auditorium"
+                             referencedColumnNames="AuditoriumID"/>
+            </column>
+            <column name="ScreeningStart" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="Screening"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="mateusz.pelnikowski" id="create-seat-table" logicalFilePath="create-schema.xml">
+        <createTable tableName="Seat">
+            <column autoIncrement="true" name="SeatID" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="RowNumber" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ColNumber" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SeatNumber" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AuditoriumID" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="Auditorium_Seat_FK"
+                             referencedTableName="Auditorium"
+                             referencedColumnNames="AuditoriumID"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="Seat"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="mateusz.pelnikowski" id="create-discount-table" logicalFilePath="create-schema.xml">
+        <createTable tableName="Discount">
+            <column autoIncrement="true" name="DiscountID" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="DiscountCode" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DiscountValue" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="Discount"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="mateusz.pelnikowski" id="create-reservation-table" logicalFilePath="create-schema.xml">
+        <createTable tableName="Reservation">
+            <column autoIncrement="true" name="ReservationID" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="ScreeningID" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="Reservation_Screening_FK"
+                             referencedTableName="Screening"
+                             referencedColumnNames="ScreeningID"
+                             deleteCascade="true"/>
+            </column>
+            <column name="Reserved" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Active" type="boolean" defaultValue="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ReservationOwner" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ReservationOwnerEmail" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ReservationCost" type="decimal(5,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CreatedTime" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ExpirationTime" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DiscountID" type="int">
+                <constraints foreignKeyName="Reservation_Discount_FK"
+                             referencedTableName="Discount"
+                             referencedColumnNames="DiscountID"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="Reservation"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="mateusz.pelnikowski" id="create-screening-seat-table" logicalFilePath="create-schema.xml">
+        <createTable tableName="ScreeningSeat">
+            <column autoIncrement="true" name="ScreeningSeatID" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="ScreeningID" type="int">
+                <constraints nullable="true"
+                             foreignKeyName="SeatReservation_ScreeningID_FK"
+                             referencedTableName="Screening"
+                             referencedColumnNames="ScreeningID"/>
+            </column>
+            <column name="SeatID" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="ScreeningSeat_SeatID_FK"
+                             referencedTableName="Seat"
+                             referencedColumnNames="SeatID"/>
+            </column>
+            <column name="Reserved" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint columnNames="ScreeningID, SeatID"
+                             constraintName="ScreeningSeat_ScreeningID_SeatID_UQ"
+                             tableName="ScreeningSeat"/>
+        <rollback>
+            <dropTable tableName="ScreeningSeat"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
