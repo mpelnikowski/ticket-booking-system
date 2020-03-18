@@ -1,0 +1,31 @@
+spring:
+  liquibase:
+    change-log: @spring.liquibase.change-log@
+  datasource:
+    driver-class-name: @spring.datasource.driver-class-name@
+    url: @spring.datasource.url@
+    username: @spring.datasource.username@
+    password: @spring.datasource.password@
+  h2:
+    console:
+      enabled: @spring.h2.console.enabled@
+      settings:
+        trace: @spring.h2.console.settings.trace@
+        web-allow-others: @spring.h2.console.settings.web-allow-others@
+  jpa:
+    database-platform: @spring.jpa.database-platform@
+    hibernate:
+      ddl-aut: @spring.jpa.hibernate.ddl-auto@
+      naming_strategy: @spring.jpa.hibernate.naming_strategy@
+      naming:
+        physical-strategy: @spring.jpa.hibernate.naming.physical-strategy@
+        implicit-strategy: @spring.jpa.hibernate.naming.implicit-strategy@
+logging:
+  level:
+    liquibase: @logging.level.liquibase@
+  org:
+    hibernate:
+      type: @logging.level.org.hibernate.type@
+    springframework:
+      transaction: @logging.level.org.springframework.transaction@
+      web: @logging.level.org.springframework.web@

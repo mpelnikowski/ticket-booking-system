@@ -1,0 +1,23 @@
+{
+    "discountCode": "1QAZ2WSX",
+    "firstName": "Mateusz",
+    "lastN": "Pełnikowski",
+    "reservationEmail": "mpelnikowski@gmail.com",
+    "screeningId": 1,
+    "seats": [
+        {
+            "seatId": 1,
+            "seatNumber": 1,
+            "rowNumber": 1,
+            "colNumber": 1,
+            "seatReservationType": "ADULT"
+        },
+        {
+            "seatId": 5,
+            "seatNumber": 5,
+            "rowNumber": 1,
+            "colNumber": 5,
+            "seatReservationType": "ADULT"
+        }
+    ]
+}
